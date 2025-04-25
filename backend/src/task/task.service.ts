@@ -15,7 +15,11 @@ export class TaskService {
   }
 
   async findAll(): Promise<TaskDto[]> {
-    return this.prisma.task.findMany();
+    return this.prisma.task.findMany({
+      orderBy: {
+        completed: 'asc',
+      },
+    });
   }
 
   async toggleCompleted(id: number): Promise<TaskDto> {

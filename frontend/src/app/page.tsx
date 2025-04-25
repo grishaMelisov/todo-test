@@ -15,6 +15,7 @@ export default function Home() {
     const fetchTasks = async () => {
       try {
         const tasks = await getTasks();
+
         setTasks(tasks);
       } catch (error) {
         console.error('Failed to load tasks:', error);
@@ -34,25 +35,36 @@ export default function Home() {
     setTasks((prev) => prev.filter((task) => task.id !== id));
   };
 
+  const handleTaskToggled = (id: number) => {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
+
   console.log(tasks, 'таски');
   return (
     <div className="mx-auto max-w-md py-10">
       <TaskForm onTaskCreated={handleTaskCreated} />
-      {isLoading ? (
-        <p className="text-center text-gray-500">Загружаю задачи...</p>
-      ) : (
-        tasks.map((e) => {
-          return (
-            <Task
-              key={e.id}
-              onTaskDeleted={handleTaskDeleted}
-              isCompleted={e.completed}
-              title={e.title}
-              taskId={e.id}
-            />
-          );
-        })
-      )}
+      <div className="flex flex-col gap-5">
+        {isLoading ? (
+          <p className="text-center text-gray-500">Загружаю задачи...</p>
+        ) : (
+          tasks.map((e) => {
+            return (
+              <Task
+                key={e.id}
+                onTaskDeleted={handleTaskDeleted}
+                onTaskToggled={handleTaskToggled}
+                isCompleted={e.completed}
+                title={e.title}
+                taskId={e.id}
+              />
+            );
+          })
+        )}
+      </div>
     </div>
   );
 }
