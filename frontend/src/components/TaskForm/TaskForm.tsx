@@ -1,0 +1,51 @@
+'use client';
+
+import { FormEvent, useState } from 'react';
+
+import { Task, createTask } from '@/api/api';
+
+interface TaskFormProps {
+  onTaskCreated: (task: Task) => void;
+}
+
+export default function TaskForm({ onTaskCreated }: TaskFormProps) {
+  const [title, setTitle] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!title.trim()) return;
+
+    try {
+      setIsLoading(true);
+      const newTask = await createTask(title);
+      onTaskCreated(newTask);
+      setTitle('');
+    } catch (error) {
+      console.error('Failed to create task:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="mb-4 flex w-full flex-col gap-2">
+      <label className="rounded-lg border p-3">
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Новая задача"
+          className="w-full border-hidden focus:outline-hidden"
+        />
+      </label>
+      <button
+        type="submit"
+        disabled={isLoading}
+        className="bg-sea-green-300 text-button hover:bg-sea-green-500 rounded-md px-3 py-2 transition active:scale-98 disabled:opacity-50"
+      >
+        {isLoading ? 'Добавляю...' : 'Добавить'}
+      </button>
+    </form>
+  );
+}
