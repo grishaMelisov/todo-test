@@ -46,6 +46,7 @@ DATABASE_URL="postgresql://[имя_пользователя]:[ваш_парол�
 
 ```bash
 npx prisma migrate dev --name init
+npx prisma generate
 ```
 
 Запустите сервер:
