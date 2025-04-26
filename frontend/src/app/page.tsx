@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
-import Task from '@/components/Task/Task';
 import TaskForm from '@/components/TaskForm/TaskForm';
+import TaskList from '@/components/TaskList/TaskList';
 import CustomCheckbox from '@/components/ui/CustomCheckBox';
 
 import { TaskInterface, getTasks } from '@/api/api';
@@ -65,20 +65,13 @@ export default function Home() {
 
       <div className="flex w-2/3 flex-col gap-5">
         {isLoading ? (
-          <p className="text-soft-grey text-center">Загружаю задачи...</p>
+          <h3 className="text-center">Загружаю задачи...</h3>
         ) : (
-          visibleTasks.map((e) => {
-            return (
-              <Task
-                key={e.id}
-                onTaskDeleted={handleTaskDeleted}
-                onTaskToggled={handleTaskToggled}
-                isCompleted={e.completed}
-                title={e.title}
-                taskId={e.id}
-              />
-            );
-          })
+          <TaskList
+            tasks={visibleTasks}
+            onTaskDeleted={handleTaskDeleted}
+            onTaskToggled={handleTaskToggled}
+          />
         )}
       </div>
     </div>

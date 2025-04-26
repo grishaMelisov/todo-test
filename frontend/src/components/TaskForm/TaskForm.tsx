@@ -42,7 +42,7 @@ export default function TaskForm({ onTaskCreated }: TaskFormProps) {
       <button
         type="submit"
         disabled={isLoading}
-        className="bg-sea-green-300 text-button hover:bg-sea-green-500 rounded-md px-3 py-2 transition active:scale-98 disabled:opacity-50"
+        className="bg-bg-button text-button hover:bg-sea-green-500 rounded-md px-3 py-2 transition active:scale-98 disabled:opacity-50"
       >
         {isLoading ? 'Добавляю...' : 'Добавить'}
       </button>
