@@ -62,7 +62,7 @@ export default function Task({
         <div className="flex-0 basis-0">
           <CustomCheckbox checked={isCompleted} onChange={ToggleHandler} />
         </div>
-        <div className="flex-1 basis-0 text-center">{title}</div>
+        <div className="text-trim flex-1 basis-0 text-center">{title}</div>
       </div>
       <button
         disabled={isLoading}

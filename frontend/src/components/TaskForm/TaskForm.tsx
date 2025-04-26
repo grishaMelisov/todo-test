@@ -2,10 +2,10 @@
 
 import { FormEvent, useState } from 'react';
 
-import { Task, createTask } from '@/api/api';
+import { TaskInterface, createTask } from '@/api/api';
 
 interface TaskFormProps {
-  onTaskCreated: (task: Task) => void;
+  onTaskCreated: (task: TaskInterface) => void;
 }
 
 export default function TaskForm({ onTaskCreated }: TaskFormProps) {
@@ -22,14 +22,14 @@ export default function TaskForm({ onTaskCreated }: TaskFormProps) {
       onTaskCreated(newTask);
       setTitle('');
     } catch (error) {
-      console.error('Failed to create task:', error);
+      console.error('Ошибка при создании задачи', error);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4 flex w-full flex-col gap-2">
+    <form onSubmit={handleSubmit} className="flex w-full flex-col gap-2">
       <label className="rounded-lg border p-3">
         <input
           type="text"

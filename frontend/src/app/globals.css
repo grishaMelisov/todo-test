@@ -15,7 +15,7 @@
   --color-dark-charcoal: #333333;
 
   --max-content-width: 1440px;
-  --explore-padding-inline: 130px;
+  --explore-padding-inline: 20px;
   --radius-lg: 12px;
   --color-button: var(--color-cultured);
   --line-height-title-lg: 68px;
@@ -41,14 +41,6 @@
 }
 
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
-
   button:not(:disabled),
   [role='button']:not(:disabled) {
     cursor: pointer;
@@ -85,43 +77,29 @@
   }
 }
 
-.explore-shell {
-  padding-inline: var(--explore-padding-inline);
-  max-width: var(--max-content-width, 2520px);
-  margin-inline: auto;
+@layer utilities {
+  .explore-shell {
+    padding-inline: var(--explore-padding-inline);
+    max-width: var(--max-content-width, 2520px);
+    margin-inline: auto;
 
-  @media (min-width: 744px) {
-    --explore-padding-inline: 40px;
+    @media (min-width: 744px) {
+      --explore-padding-inline: 20px;
+    }
+
+    @media (min-width: 1128px) {
+      --explore-padding-inline: 40px;
+    }
+
+    @media (min-width: 1440px) {
+      --explore-padding-inline: 80px;
+    }
   }
 
-  @media (min-width: 1128px) {
-    --explore-padding-inline: 40px;
-  }
-
-  @media (min-width: 1440px) {
-    --explore-padding-inline: 80px;
-  }
-}
-
-.grid-shell {
-  grid-template-columns: repeat(var(--breakpoint-grid-columns, 1), minmax(0, 1fr));
-  gap: 40px 24px;
-  grid-auto-flow: row dense;
-  --breakpoint-grid-columns: 1;
-
-  @media (min-width: 550px) {
-    --breakpoint-grid-columns: 2;
-  }
-  @media (min-width: 950px) {
-    --breakpoint-grid-columns: 3;
-  }
-  @media (min-width: 1128px) {
-    --breakpoint-grid-columns: 4;
-  }
-  @media (min-width: 1640px) {
-    --breakpoint-grid-columns: 5;
-  }
-  @media (min-width: 1880px) {
-    --breakpoint-grid-columns: 6;
+  .text-trim {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    white-space: nowrap;
   }
 }
